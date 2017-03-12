@@ -46,20 +46,21 @@
 
   // upload CSV file from local directory and display latitude and longitude coordinates as default blue markers on map
 
+  // var icon = L.icon({
+  //   iconURL: 'red-icon.png',
+  //   iconSize: [25,25]
+  // });
+
+  omnivore.csv('data.csv')
+  .on('ready',function(layer) {
+    this.eachLayer(function(marker){
+      //marker.setIcon(icon);
+      var popup = marker.toGeoJson().properties.Title;
+      marker.bindPopup(popup);
+    });
+  }).addTo(map);
 
 
-  var customLayer = L.geoJson(null, {
-    onEachFeature: function(feature, layer) {
-      layer.bindPopup(feature.properties.Title);
-      }
-  });
-
-  var runLayer = omnivore.csv('data.csv', null, customLayer)
-      .on('ready', function() {
-          // http://leafletjs.com/reference.html#map-fitbounds
-          map.fitBounds(runLayer.getBounds());
-      })
-      .addTo(map);
 
   </script>
 </body>
