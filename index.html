@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>leaflet-map-simple</title>
+  <title>leaflet-map-csv</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
 
@@ -45,7 +45,9 @@
   }); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
 
   // upload CSV file from local directory and display latitude and longitude coordinates as default blue markers on map
-  omnivore.csv('data.csv').addTo(map);
+  omnivore.csv('data.csv')
+    .bindPopup("Every marker has same message")
+    .addTo(map);
 
   </script>
 </body>
