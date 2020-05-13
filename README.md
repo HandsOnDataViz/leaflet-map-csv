@@ -1,5 +1,9 @@
 # leaflet-map-csv
-Simple Leaflet map with points from local CSV file
+Simple Leaflet map with points (markers) from local CSV file.
 
-## link to live map
-https://datavizforall.github.io/leaflet-map-csv/
+<p align="center">
+  <img src="./leaflet-map-csv.png" alt="Leaflet Map Csv Demo" />
+</p>
+
+## Demo
+https://handsondataviz.github.io/leaflet-map-csv/
