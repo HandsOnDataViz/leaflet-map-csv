@@ -46,15 +46,15 @@
 
   // upload CSV file from local directory and display latitude and longitude coordinates as default blue markers on map
 
-  // var icon = L.icon({
-  //   iconURL: 'red-icon.png',
-  //   iconSize: [25,25]
-  // });
+  var icon = L.icon({
+    iconURL: 'red-icon.png',
+    iconSize: [25,25]
+  });
 
   omnivore.csv('data.csv')
   .on('ready',function(layer) {
     this.eachLayer(function(marker){
-      //marker.setIcon(icon);
+      marker.setIcon(icon);
       var popup = marker.toGeoJson().properties.Title;
       marker.bindPopup(popup);
     });
