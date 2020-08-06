@@ -1,5 +1,5 @@
 # leaflet-map-csv
-Simple Leaflet map with points (markers) from local CSV file.
+Build a simple Leaflet map with point markers from a CSV file.
 
 <p align="center">
   <img src="./leaflet-map-csv.png" alt="Leaflet Map Csv Demo" />
@@ -7,3 +7,5 @@ Simple Leaflet map with points (markers) from local CSV file.
 
 ## Demo
 https://handsondataviz.github.io/leaflet-map-csv/
+## Tutorial
+https://handsondataviz.org/leaflet-maps-with-csv.html
