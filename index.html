@@ -6,16 +6,17 @@
   <meta charset="utf-8">
 
   <!-- Load Leaflet code library - see updates at http://leafletjs.com/download.html -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"/>
-  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-  <!-- Load Omnivore plugin to convert CSV to GeoJSON format -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/leaflet-omnivore/0.3.4/leaflet-omnivore.min.js'></script>
+  <!-- Load jQuery and PapaParse to read data from a CSV file -->
+  <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
 
   <!-- Position the map with Cascading Style Sheet (CSS) -->
   <style>
-  body { margin:0; padding:0; }
-  #map { position: absolute; top:0; bottom:0; right:0; left:0; }
+    body { margin:0; padding:0; }
+    #map { position: absolute; top:0; bottom:0; right:0; left:0; }
   </style>
 
 </head>
@@ -29,15 +30,15 @@
 
   // Set up initial map center and zoom level
   var map = L.map('map', {
-    center: [41.77, -72.69], // EDIT latitude, longitude to re-center map
-    zoom: 8,  // EDIT from 1 to 18 -- decrease to zoom out, increase to zoom in
+    center: [41.57, -72.69], // EDIT latitude, longitude to re-center map
+    zoom: 9,  // EDIT from 1 to 18 -- decrease to zoom out, increase to zoom in
     scrollWheelZoom: false
   });
 
   /* Control panel to display map layers */
   var controlLayers = L.control.layers( null, null, {
-   position: "topright",
-   collapsed: false
+    position: "topright",
+    collapsed: false
   }).addTo(map);
 
   // display Carto basemap tiles with light features and labels
@@ -54,19 +55,25 @@
 
   // see more basemap options at https://leaflet-extras.github.io/leaflet-providers/preview/
 
-  // upload CSV file from local directory and display latitude and longitude coordinates as default blue markers on map
-  var customLayer = L.geoJson(null, {
-    onEachFeature: function(feature, layer) {
-      layer.bindPopup(feature.properties.Title);
-      }
-  });
+  // Read markers data from data.csv
+  $.get('./data.csv', function(csvString) {
 
-  var runLayer = omnivore.csv('data.csv', null, customLayer)
-      .on('ready', function() {
-          // http://leafletjs.com/reference.html#map-fitbounds
-          map.fitBounds(runLayer.getBounds());
-      })
-      .addTo(map);
+    // Use PapaParse to convert string to array of objects
+    var data = Papa.parse(csvString, {header: true, dynamicTyping: true}).data;
+
+    // For each row in data, create a marker and add it to the map
+    // For each row, columns `Latitude`, `Longitude`, and `Title` are required
+    for (var i in data) {
+      var row = data[i]
+
+      var marker = L.marker([row.Latitude, row.Longitude], {
+        opacity: 1
+      }).bindPopup(row.Title)
+      
+      marker.addTo(map)
+    }
+
+  })
 
   </script>
 </body>
