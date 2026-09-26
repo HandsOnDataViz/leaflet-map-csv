@@ -43,7 +43,7 @@
   }).addTo(map);
 
   // display Carto basemap tiles with light features and labels
-  var light = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  var light = L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_2lgt_1_9e472fb45845ca23e883e1aa', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, &copy; <a href="https://carto.com/attribution">CARTO</a>'
   }).addTo(map); // EDIT - insert or remove ".addTo(map)" before last semicolon to display by default
   controlLayers.addBaseLayer(light, 'Carto Light basemap');
@@ -70,7 +70,7 @@
       var marker = L.marker([row.Latitude, row.Longitude], {
         opacity: 1
       }).bindPopup(row.Title);
-      
+
       marker.addTo(map);
     }
 
